@@ -1,0 +1,353 @@
+package com.MphApp.MphCerti.Helper;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.MphApp.MphCerti.entity.ExcelDump;
+
+public class ExcelHelper {
+	
+	public static boolean checkExcelFormat(MultipartFile file) {
+		
+		String contentType = file.getContentType();
+		
+		String Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		
+		if(contentType.equals(Type)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	public static List<ExcelDump> convertExceltoList(InputStream is){
+		List<ExcelDump> list = new ArrayList<>();
+		
+		try {
+			XSSFWorkbook wb = new XSSFWorkbook(is);
+			
+			XSSFSheet sheet = wb.getSheet("data");
+			
+			int rowNumber = 0;
+			Iterator<Row> iterator = sheet.iterator();
+			
+			while(iterator.hasNext()) {
+				Row row = iterator.next();
+				
+				if(rowNumber == 0) {
+					rowNumber++;
+					continue;
+				}
+				
+				Iterator<Cell> cells = row.iterator();
+				
+				int cid=0;
+				
+				ExcelDump ed =  new ExcelDump();
+				
+				while(cells.hasNext()) {
+					Cell cell = cells.next();
+					
+					switch (cid) {
+					case 0:
+						ed.setDate((String)cell.getStringCellValue());
+						break;
+					case 1:
+						ed.setEmployee_Number((int)cell.getNumericCellValue());
+						break;
+					case 2:
+						ed.setEmployee_Name((String)cell.getStringCellValue());
+						break;
+					case 3:
+						ed.setDate_Of_Joining((String)cell.getStringCellValue());
+						break;
+					case 4:
+						ed.setLocation((String)cell.getStringCellValue());
+						break;
+					case 5:
+						ed.setPos_Loc_Name((String)cell.getStringCellValue());
+						break;
+					case 6:
+						ed.setLocation_Type((String)cell.getStringCellValue());
+						break;
+					case 7:
+						ed.setPos_Loc_Type((String)cell.getStringCellValue());
+						break;
+					case 8:
+						ed.setEmployee_Type((String)cell.getCellFormula());
+						break;
+					case 9:
+						ed.setRole_Desc((String)cell.getStringCellValue());
+						break;
+					case 10:
+						ed.setWork_Allocation((int)cell.getNumericCellValue());
+						break;
+					case 11:
+						ed.setBill_Allocation((int)cell.getNumericCellValue());
+						break;
+					case 12:
+						ed.setBilling_Type_Role((String)cell.getStringCellValue());
+						break;
+					case 13:
+						ed.setGrade_Desc((String)cell.getStringCellValue());
+						break;
+					case 14:
+						ed.setProject_Role((String)cell.getStringCellValue());
+						break;
+					case 15:
+						ed.setEnd_Client_Id((int)cell.getNumericCellValue());
+						break;
+					case 16:
+						ed.setEnd_Client_Name((String)cell.getStringCellValue());
+						break;
+					case 17:
+						ed.setEnd_Client_Group((int)cell.getNumericCellValue());
+						break;
+					case 18:
+						ed.setEnd_Client_Group_Name((String)cell.getStringCellValue());
+						break;
+					case 19:
+						ed.setMarketing_Unit((String)cell.getStringCellValue());
+						break;
+					case 20:
+						ed.setSub_Marketing_Unit((String)cell.getStringCellValue());
+						break;
+					case 21:
+						ed.setChannel((String)cell.getStringCellValue());
+						break;
+					case 22:
+						ed.setBussiness_Organization((String)cell.getStringCellValue());
+						break;
+					case 23:
+						ed.setService_type((String)cell.getStringCellValue());
+						break;
+					case 24:
+						ed.setDelivery_Unit((String)cell.getStringCellValue());
+						break;
+					case 25: 
+						ed.setProject_Name((String)cell.getStringCellValue());
+						break;
+					case 26: 
+						ed.setAssignment_Start_Date((String)cell.getStringCellValue());
+						break;
+					case 27:
+						ed.setAssignment_End_Date((String)cell.getStringCellValue());
+						break;
+					case 28:
+						ed.setProject_Type((String)cell.getStringCellValue());
+						break;
+					case 29:
+						ed.setProject_Bill_Flag((String)cell.getStringCellValue());
+						break;
+					case 30:
+						ed.setProject_Billing_Category((String)cell.getStringCellValue());
+						break;
+					case 31:
+						ed.setDM_Employee_Number((int)cell.getNumericCellValue());
+						break;
+					case 32:
+						ed.setDm_Employee_Name((String)cell.getStringCellValue());
+						break;
+					case 33:
+						ed.setVl_Employee_Number((int)cell.getNumericCellValue());
+						break;
+					case 34:
+						ed.setVL_Employee_Name((String)cell.getStringCellValue());
+						break;
+					case 35:
+						ed.setDh_Employee_Number((int)cell.getNumericCellValue());
+						break;
+					case 36:
+						ed.setDh_Employee_Name((String)cell.getStringCellValue());
+						break;
+					case 37:
+						ed.setParctice((String)cell.getStringCellValue());
+						break;
+					case 38:
+						ed.setSub_Partice((String)cell.getStringCellValue());
+						break;
+					case 39:
+						ed.setDOH_Level((String)cell.getStringCellValue());
+						break;
+					case 40:
+						ed.setAssignment((String)cell.getStringCellValue());
+						break;
+					case 41:
+						ed.setEmployee_Category((String)cell.getStringCellValue());
+						break;
+					case 42:
+						ed.setOp_Comm_Model((String)cell.getStringCellValue());
+						break;
+					case 43:
+						ed.setOp_serv_Type((String)cell.getStringCellValue());
+						break;
+					case 44:
+						ed.setFTE((String)cell.getStringCellValue());
+						break;
+					case 45:
+						ed.setTower((String)cell.getStringCellValue());
+						break;
+					case 46:
+						ed.setFreshers((String)cell.getStringCellValue());
+						break;
+					case 47:
+						ed.setTimes((int)cell.getNumericCellValue());
+						break;
+					case 48:
+						ed.setHeadCount((int)cell.getNumericCellValue());
+						break;
+					case 49:
+						ed.setFreashers_HC((int)cell.getNumericCellValue());
+						break;
+					case 50:
+						ed.setSum_Of_Bill_Allocation((int)cell.getNumericCellValue());
+						break;
+					case 51:
+						ed.setProject_Bill_Flag1((String)cell.getStringCellValue());
+						break;
+					case 52:
+						ed.setCategory((String)cell.getStringCellValue());
+						break;
+					case 53:
+						ed.setChannel1((String)cell.getStringCellValue());
+						break;
+					case 54:
+						ed.setSMU((String)cell.getStringCellValue());
+						break;
+					case 55:
+						ed.setDU_Leader((String)cell.getStringCellValue());
+						break;
+					case 56:
+						ed.setDU_Leader2((String)cell.getStringCellValue());
+						break;
+					case 57:
+						ed.setCategory_Bill_Buffer((String)cell.getStringCellValue());
+						break;
+					case 58:
+						ed.setSection((String)cell.getStringCellValue());
+						break;
+					case 59:
+						ed.setSection2((String)cell.getStringCellValue());
+						break;
+					case 60:
+						ed.setSMU2((String)cell.getStringCellValue());
+						break;
+					case 61:
+						ed.setOperational_Client_Group((String)cell.getStringCellValue());
+						break;
+					case 62:
+						ed.setExpense_Type((String)cell.getStringCellValue());
+						break;
+					case 63:
+						ed.setRes_Practice((String)cell.getStringCellValue());
+						break;
+					case 64:
+						ed.setCreation_Date((String)cell.getStringCellValue());
+						break;
+					case 65:
+						ed.setSupervisor_Name((String)cell.getStringCellValue());
+						break;
+					case 66:
+						ed.setResource_Country((String)cell.getStringCellValue());
+						break;
+					case 67:
+						ed.setEmployee_Email((String)cell.getStringCellValue());
+						break;
+					case 68:
+						ed.setBussiness_Unit((String)cell.getStringCellValue());
+						break;
+					case 69:
+						ed.setMU_Name((String)cell.getStringCellValue());
+						break;
+					case 70:
+						ed.setMarketUnit_Leader((String)cell.getStringCellValue());
+						break;
+					case 71:
+						ed.setAging((int)cell.getNumericCellValue());
+						break;
+					case 72:
+						ed.setMonth((int)cell.getNumericCellValue());
+						break;
+					case 73:
+						ed.setAging_Bucket((String)cell.getStringCellValue());
+						break;
+					case 74:
+						ed.setPM((String)cell.getStringCellValue());
+						break;
+					case 75:
+						ed.setCritical_Employee_Flag((String)cell.getStringCellValue());
+						break;
+					case 76:
+						ed.setBilling_Start_Flag((String)cell.getStringCellValue());
+						break;
+					case 77:
+						ed.setReleaseDate_In_prism((String)cell.getStringCellValue());
+						break;
+					case 78:
+						ed.setBilling_Month((String)cell.getStringCellValue());
+						break;
+					case 79:
+						ed.setRelease_Month((String)cell.getStringCellValue());
+						break;
+					case 80:
+						ed.setBilling_Plan_Status_in_prism((String)cell.getStringCellValue());
+						break;
+					case 81:
+						ed.setSeperation_Date((String)cell.getStringCellValue());
+						break;
+					case 82:
+						ed.setRelease_Reason((String)cell.getStringCellValue());
+						break;
+					case 83:
+						ed.setBilling_Plan_Status_in_prism((String)cell.getStringCellValue());
+						break;
+					case 84:
+						ed.setSeperation_Date((String)cell.getStringCellValue());
+						break;
+					case 85:
+						ed.setRelease_Reason((String)cell.getStringCellValue());
+						break;
+					case 86:
+						ed.setCompetence((String)cell.getStringCellValue());
+						break;
+					case 87:
+						ed.setPrimary_Compentence_Area((String)cell.getStringCellValue());
+						break;
+					case 88:
+						ed.setPrimary_Subskill1((String)cell.getStringCellValue());
+						break;
+					case 89:
+						ed.setSecondary_Competency_Area((String)cell.getStringCellValue());
+						break;
+					case 90:
+						ed.setSecondary_Subskill1((String)cell.getStringCellValue());
+						break;
+					default:
+						break;
+									
+								
+					}
+					cid++;
+				}
+				list.add(ed);
+				
+			}
+	
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+}
